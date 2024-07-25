@@ -1,0 +1,4 @@
+FLASK_APP=yacut - Name of application
+FLASK_DEBUG=1 - Enable(1) or Disable(0) debug mode
+DATABASE_URI=sqlite:///db.sqlite3 - DB driver(used SQLite for development)
+SECRET_KEY=<YOUR_SUPER_SECRET_KEY> - Is secret key that used to encrypt sensitive user data, such as passwords.
