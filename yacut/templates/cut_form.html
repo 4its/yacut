@@ -7,7 +7,6 @@
       <p class="text-center my-4">
         Создайте короткую ссылку автоматически или предложите свой вариант
       </p>
-
       <div class="container">
         <div class="row my-3">
           <div class="col-sm">
@@ -25,7 +24,6 @@
                             {% endfor %}
                           </p>
                     {% endif %}
-
                 </div>
                 <div>
                     {{ form.custom_id(class="form-control form-control-lg py-2 mb-3", id="form-link", placeholder=form.custom_id.label.text) }}
@@ -37,8 +35,6 @@
                           </p>
                     {% endif %}
                 </div>
-
-{#                <input type="submit" class="btn btn-primary" value="Создать">#}
               {{ form.submit(class="btn btn-primary") }}
               </div>
             </form>
@@ -47,7 +43,6 @@
           </div>
         </div>
       </div>
-
       <div class="container">
         <div class="row ">
           <div class="col-sm">
@@ -64,16 +59,10 @@
                 {% endif %}
               {% endwith %}
           </div>
-{#          <div class="col-sm">#}
-{#            <p class="text-center">#}
-{#            <h5 class="text-center">Пример информационного сообщения</h5>#}
-{#            </p>#}
-{#          </div>#}
           <div class="col-sm">
           </div>
         </div>
       </div>
-
     </section>
   </main>
 {% endblock %}
