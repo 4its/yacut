@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}404. Если тут что-то было, теперь этого тут нет.{% endblock %}
+{% block content %}
+    <main>
+    <section class="container my-5 px-4">
+{#      <h1 class="text-center"><span style="color:red">Ya</span>Cut</h1>#}
+{#      <p class="text-center my-4">#}
+{#        Создайте короткую ссылку автоматически или предложите свой вариант#}
+{#      </p>#}
+
+      <div class="container">
+        <div class="row my-3">
+          <div class="col-sm">
+          </div>
+          <div class="col-sm">
+              <a class="nav-link" href="{{ url_for('index_view') }}">
+                <img src="{{ url_for('static', filename='img/404.png') }}" alt="Вернутся на главную">
+              </a>
+          </div>
+          <div class="col-sm">
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row ">
+          <div class="col-sm">
+          </div>
+          <div class="col-sm">
+              {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <h5 class="text-center">Ваша новая ссылка готова:</h5>
+                    {% for message in messages %}
+                        <p class="text-center">
+                        {{ message|safe }}
+                        </p>
+                    {% endfor %}
+                {% endif %}
+              {% endwith %}
+          </div>
+{#          <div class="col-sm">#}
+{#            <p class="text-center">#}
+{#            <h5 class="text-center">Пример информационного сообщения</h5>#}
+{#            </p>#}
+{#          </div>#}
+          <div class="col-sm">
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+{% endblock %}
