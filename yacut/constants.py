@@ -8,7 +8,7 @@ SHORT_URL_LENGTH = 16
 # for Custom ID generator
 AVAILIBLE_CHARS = ascii_letters + digits
 DEFAULT_LENGTH = 6
-ID_PATTERN = r'^[A-Za-z0-9]{1,16}$'
+ID_PATTERN = r'^[A-Za-z0-9]{1,%d}$' % SHORT_URL_LENGTH
 
 
 class FormText:
