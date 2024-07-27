@@ -32,7 +32,7 @@ def index_view():
     return render_template('cut_form.html', form=form)
 
 
-@app.route('/<string:short>', methods=['GET'])
+@app.route('/<short>', methods=['GET'])
 def redirect_to(short):
     return redirect(
         URLMap.query.filter_by(short=short).first_or_404().original
