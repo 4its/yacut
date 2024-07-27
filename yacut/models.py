@@ -3,12 +3,13 @@ from datetime import datetime
 from flask import url_for
 
 from yacut import db
+from .constants import ORIGINAL_URL_LENGTH, SHORT_URL_LENGTH
 
 
 class URLMap(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    original = db.Column(db.String(256), nullable=False)
-    short = db.Column(db.String(16), unique=True)
+    original = db.Column(db.String(ORIGINAL_URL_LENGTH), nullable=False)
+    short = db.Column(db.String(SHORT_URL_LENGTH), unique=True)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def to_dict(self):
