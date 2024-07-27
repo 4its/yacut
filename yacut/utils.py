@@ -1,10 +1,11 @@
 from random import choices
-from string import ascii_letters, digits
 
-
-AVAILIBLE_CHARS = ascii_letters + digits
-DEFAULT_LENGTH = 6
+from .constants import AVAILIBLE_CHARS, DEFAULT_LENGTH
+from .models import URLMap
 
 
 def get_unique_short_id():
-    return ''.join(choices(AVAILIBLE_CHARS, k=DEFAULT_LENGTH))
+    while True:
+        short_id = ''.join(choices(AVAILIBLE_CHARS, k=DEFAULT_LENGTH))
+        if not URLMap.query.filter_by(short=short_id).first():
+            return short_id
