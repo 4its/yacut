@@ -8,7 +8,7 @@ LINK_LABEL = 'Длинная ссылка'
 ID_LABEL = 'Ваш вариант короткой ссылки'
 WRONG_CHARS = 'Недопустимые символы в короткой ссылке'
 SUBMIT_LABEL = 'Создать'
-CUSTOM_ID_PATTERN = r'^[A-Za-z0-9]+$'
+CUSTOM_ID_PATTERN = r'^[A-Za-z0-9]{1,16}$'
 
 
 class URLMapForm(FlaskForm):
@@ -23,7 +23,6 @@ class URLMapForm(FlaskForm):
     custom_id = StringField(
         ID_LABEL,
         validators=(
-            Length(1, 16),
             Optional(),
             Regexp(CUSTOM_ID_PATTERN, message=WRONG_CHARS),
         )
