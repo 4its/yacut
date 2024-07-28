@@ -1,12 +1,11 @@
-from re import match
+from http import HTTPStatus
 
 from flask import jsonify, request
 
-from . import app, db
+from . import app
 from .error_handlers import InvalidAPIUsage
 from .models import URLMap
-from .utils import get_unique_short_id
-from settings import ID_PATTERN, TextErrors
+from settings import TextErrors
 
 
 @app.route('/api/id/', methods=['POST'])
@@ -16,22 +15,15 @@ def add_urlmap():
         raise InvalidAPIUsage(TextErrors.NO_DATA_ERROR)
     if 'url' not in data:
         raise InvalidAPIUsage(TextErrors.NO_URL_ERROR)
-    if 'custom_id' not in data or len(data['custom_id']) < 1:
-        data['custom_id'] = get_unique_short_id()
-    elif not match(ID_PATTERN, data['custom_id']):
-        raise InvalidAPIUsage(TextErrors.BAD_CUSTOM_ID)
-    elif URLMap.query.filter_by(short=data['custom_id']).first():
-        raise InvalidAPIUsage(TextErrors.ID_ALREADY_EXIST)
-    urlmap = URLMap()
-    urlmap.from_dict(data)
-    db.session.add(urlmap)
-    db.session.commit()
-    return jsonify(urlmap.to_dict()), 201
+    urlmap = URLMap.add_short(
+        original=data['url'], short=data.get('custom_id')
+    )
+    return jsonify(urlmap.to_dict()), HTTPStatus.CREATED
 
 
 @app.route('/api/id/<short_id>/', methods=['GET'])
 def get_url(short_id):
-    urlmap = URLMap.query.filter_by(short=short_id).first()
-    if urlmap is None:
-        raise InvalidAPIUsage(TextErrors.ID_NOT_FOUND, 404)
-    return jsonify(dict(url=urlmap.original)), 200
+    url_map = URLMap.check_short(short_id)
+    if url_map is None:
+        raise InvalidAPIUsage(TextErrors.ID_NOT_FOUND, HTTPStatus.NOT_FOUND)
+    return jsonify(url_map.to_dict(True)), HTTPStatus.OK
