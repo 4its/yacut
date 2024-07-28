@@ -2,14 +2,16 @@ import os
 from string import ascii_letters, digits
 
 
-# Models default values.
-ORIGINAL_URL_LENGTH = 256
-SHORT_URL_LENGTH = 16
+REDIRECT_FUNCTION = 'redirect_to'
 
-# for Custom ID generator
+# Models default values.
+ORIGINAL_LENGTH = 256
+SHORT_LENGTH = 16
+
+# Custom ID generator parameters
 AVAILIBLE_CHARS = ascii_letters + digits
 DEFAULT_LENGTH = 6
-ID_PATTERN = r'^[A-Za-z0-9]{1,%d}$' % SHORT_URL_LENGTH
+SHORT_PATTERN = f'^[{AVAILIBLE_CHARS}]*$'
 
 
 class Config(object):
@@ -20,7 +22,6 @@ class Config(object):
 
 
 class FormText:
-    """Texts used in Forms."""
     REQUIRED_FIELD = 'Обязательное поле'
     WRONG_URL = 'Неправильный URL'
     LINK_LABEL = 'Длинная ссылка'
@@ -30,7 +31,6 @@ class FormText:
 
 
 class TextErrors:
-    """Texts used for error messages."""
     NO_DATA_ERROR = 'Отсутствует тело запроса'
     NO_URL_ERROR = '"url" является обязательным полем!'
     BAD_CUSTOM_ID = 'Указано недопустимое имя для короткой ссылки'
