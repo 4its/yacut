@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, URLField
 from wtforms.validators import DataRequired, Length, Optional, Regexp, URL
 
-from .constants import (
+from settings import (
     FormText, ID_PATTERN, ORIGINAL_URL_LENGTH, SHORT_URL_LENGTH
 )
 

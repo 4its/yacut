@@ -3,10 +3,10 @@ from re import match
 from flask import jsonify, request
 
 from . import app, db
-from .constants import ID_PATTERN, TextErrors
 from .error_handlers import InvalidAPIUsage
 from .models import URLMap
 from .utils import get_unique_short_id
+from settings import ID_PATTERN, TextErrors
 
 
 @app.route('/api/id/', methods=['POST'])
