@@ -19,10 +19,7 @@ def index_view():
         form.custom_id.errors = (TextErrors.LABEL_EXIST,)
         return render_template('index.html', form=form)
     db.session.add(
-        URLMap(
-            original=form.original_link.data,
-            short=short,
-        )
+        URLMap(original=form.original_link.data, short=short,)
     )
     db.session.commit()
     return render_template(
