@@ -1,17 +1,18 @@
 import os
+from re import escape
 from string import ascii_letters, digits
 
 
 REDIRECT_FUNCTION = 'redirect_to'
 
 # Models default values.
-ORIGINAL_LENGTH = 256
+ORIGINAL_LENGTH = 512
 SHORT_LENGTH = 16
 
 # Custom ID generator parameters
+DEFAULT_SHORT_LENGTH = 6
 AVAILIBLE_CHARS = ascii_letters + digits
-DEFAULT_LENGTH = 6
-SHORT_PATTERN = f'^[{AVAILIBLE_CHARS}]*$'
+SHORT_PATTERN = f'^[{escape(AVAILIBLE_CHARS)}]*$'
 
 
 class Config(object):
