@@ -55,6 +55,7 @@ $ Flask run
 После запуска проекта, Вам будут доступны как Web версия, так и API:
 
 #### Адрес по умолчанию: [**http://127.0.0.1:5000**](http://127.0.0.1:5000)
+#### Документацию можно посмотреть тут: https://app.swaggerhub.com/apis/EGIAZARYAN/ya_cut_project/0.1.0
 
 ## Команда проекта
 - [**Georgii Egiazarian**](https://github.com/4its)
