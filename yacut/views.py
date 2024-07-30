@@ -15,12 +15,12 @@ def index_view():
             'index.html',
             form=form,
             link=URLMap.create(
-                form.original_link.data, form.custom_id.data, True
+                form.original_link.data, form.custom_id.data,
             ).short_link()
         )
     except (ValueError, RuntimeError) as error:
         flash(str(error))
-        return render_template('index.html', form=form, )
+        return render_template('index.html', form=form)
 
 
 @app.route('/<short>', methods=['GET'])

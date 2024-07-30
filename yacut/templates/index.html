@@ -28,6 +28,7 @@
                     {% endfor %}
                   </p>
               </div>
+              {{ form.skip_checks() }}
               {{ form.submit(class="btn btn-primary") }}
             </div>
           </form>
@@ -48,8 +49,8 @@
         </div>
         <div class="col-sm">
           {% with messages = get_flashed_messages() %}
-            <h5 class="text-center">Возникла ошибка при работе программы</h5>
               {% for message in messages %}
+                <h5 class="text-center">Возникла ошибка при работе программы</h5>
                 <p class="text-center">{{ message }}</p>
               {% endfor %}
           {% endwith %}
