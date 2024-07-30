@@ -10,9 +10,11 @@ ORIGINAL_LENGTH = 512
 SHORT_LENGTH = 16
 
 # Custom ID generator parameters
+MAX_ATTEMPTS = 10
 DEFAULT_SHORT_LENGTH = 6
 AVAILIBLE_CHARS = ascii_letters + digits
-SHORT_PATTERN = f'^[{escape(AVAILIBLE_CHARS)}]*$'
+ESCAPED_AVAILABLE_CHARS = escape(AVAILIBLE_CHARS)
+SHORT_PATTERN = f'^[{ESCAPED_AVAILABLE_CHARS}]*$'
 
 
 class Config(object):
@@ -38,3 +40,7 @@ class TextErrors:
     ID_ALREADY_EXIST = 'Предложенный вариант короткой ссылки уже существует.'
     ID_NOT_FOUND = 'Указанный id не найден'
     LABEL_EXIST = 'Предложенный вариант короткой ссылки уже существует.'
+    GENERATION_ERROR = 'Не удалось сгенерировать короткую ссылку.'
+    BAD_ORIGINAL_LENGTH = (
+        f'Длинна оригинальной ссылки превышает {ORIGINAL_LENGTH} символов'
+    )
