@@ -23,7 +23,7 @@ $ git clone https://github.com/4its/yacut.git && cd yacut
 
 Создайте и активируйте виртуальное окружение(пример команды на Linux):
 ```shell
-$ python3.12 -m venv venv && source venv/bin/activate
+$ python3 -m venv venv && source venv/bin/activate
 ```
 
 Обновите PIP и установите необходимые зависимости:
@@ -55,7 +55,7 @@ $ Flask run
 После запуска проекта, Вам будут доступны как Web версия, так и API:
 
 #### Адрес по умолчанию: [**http://127.0.0.1:5000**](http://127.0.0.1:5000)
-#### Документацию можно посмотреть тут: https://app.swaggerhub.com/apis/EGIAZARYAN/ya_cut_project/0.1.0
+#### Документацию по API можно посмотреть [тут](https://app.swaggerhub.com/apis/EGIAZARYAN/ya_cut_project/0.1.0). 
 
 ## Команда проекта
 - [**Georgii Egiazarian**](https://github.com/4its)
