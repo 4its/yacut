@@ -15,15 +15,19 @@ def add_urlmap():
         raise InvalidAPIUsage(TextErrors.NO_DATA_ERROR)
     if 'url' not in data:
         raise InvalidAPIUsage(TextErrors.NO_URL_ERROR)
-    urlmap = URLMap.add_short(
-        original=data['url'], short=data.get('custom_id')
-    )
-    return jsonify(urlmap.to_dict()), HTTPStatus.CREATED
+    try:
+        return jsonify(
+            URLMap.create_urlmap(
+                original=data['url'], short=data.get('custom_id')
+            ).to_dict()
+        ), HTTPStatus.CREATED
+    except ValueError as error:
+        raise InvalidAPIUsage(str(error))
 
 
 @app.route('/api/id/<short_id>/', methods=['GET'])
 def get_url(short_id):
-    url_map = URLMap.check_short(short_id)
+    url_map = URLMap.get_object(short_id)
     if url_map is None:
         raise InvalidAPIUsage(TextErrors.ID_NOT_FOUND, HTTPStatus.NOT_FOUND)
     return jsonify(url_map.to_dict(True)), HTTPStatus.OK
