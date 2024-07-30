@@ -19,7 +19,7 @@ def index_view():
             ).short_link()
         )
     except (ValueError, RuntimeError) as error:
-        flash(str(error), 'exceptions')
+        flash(str(error))
         return render_template('index.html', form=form, )
 
 
