@@ -12,23 +12,23 @@ from settings import (
 
 class URLMapForm(FlaskForm):
     original_link = URLField(
-        FormText.LINK_LABEL,
+        FormText.ORIGINAL_LABEL,
         validators=(
             DataRequired(message=FormText.REQUIRED_FIELD),
             Length(max=ORIGINAL_LENGTH),
-            URL(require_tld=True, message=FormText.WRONG_URL),
+            URL(require_tld=True, message=FormText.WRONG_ORIGINAL),
         )
     )
     custom_id = StringField(
-        FormText.ID_LABEL,
+        FormText.SHORT_LABEL,
         validators=(
             Optional(),
             Length(max=SHORT_LENGTH),
-            Regexp(SHORT_PATTERN, message=FormText.WRONG_CHARS),
+            Regexp(SHORT_PATTERN, message=FormText.WRONG_CHARS_IN_SHORT),
         )
     )
     submit = SubmitField(FormText.SUBMIT_LABEL)
 
     def validate_custom_id(self, custom_id):
         if URLMap.get_object(custom_id.data):
-            raise ValidationError(TextErrors.LABEL_EXIST)
+            raise ValidationError(TextErrors.SHORT_EXIST)
