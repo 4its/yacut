@@ -40,7 +40,6 @@ class TextErrors:
     SHORT_NOT_FOUND = 'Указанный id не найден'
     GENERATION_ERROR = (
         f'Не удалось сгенерировать короткую ссылку за {MAX_ATTEMPTS} попыток.'
-        'Повторите запрос и/или измените имя короткой ссылки.'
     )
     BAD_ORIGINAL_LENGTH = (
         f'Длинна оригинальной ссылки превышает {ORIGINAL_LENGTH} символов'
