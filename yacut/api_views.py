@@ -21,13 +21,13 @@ def add_urlmap():
                 original=data['url'], short=data.get('custom_id')
             ).to_dict()
         ), HTTPStatus.CREATED
-    except ValueError as error:
+    except (RuntimeError, ValueError) as error:
         raise InvalidAPIUsage(str(error))
 
 
-@app.route('/api/id/<short_id>/', methods=['GET'])
-def get_url(short_id):
-    url_map = URLMap.get_object(short_id)
+@app.route('/api/id/<short>/', methods=['GET'])
+def get_url(short):
+    url_map = URLMap.get_object(short)
     if url_map is None:
-        raise InvalidAPIUsage(TextErrors.ID_NOT_FOUND, HTTPStatus.NOT_FOUND)
+        raise InvalidAPIUsage(TextErrors.SHORT_NOT_FOUND, HTTPStatus.NOT_FOUND)
     return jsonify(url_map.to_dict(True)), HTTPStatus.OK
