@@ -47,9 +47,9 @@
           {% endif %}
         </div>
         <div class="col-sm">
-          {% with messages = get_flashed_messages() %}
+          {% with messages = get_flashed_messages(category_filter=["exceptions"]) %}
             {% if messages %}
-              <h5 class="text-center">Возникла проблема</h5>
+              <h5 class="text-center">Возникла ошибка при работе программы</h5>
                 {% for message in messages %}
                   <p class="text-center">{{ message }}</p>
                 {% endfor %}
