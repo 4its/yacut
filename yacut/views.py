@@ -23,7 +23,6 @@ def index_view():
         return render_template('index.html', form=form, )
 
 
-
 @app.route('/<short>', methods=['GET'])
 def redirect_to(short):
     return redirect(URLMap.get_object(short, True).original)
