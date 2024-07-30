@@ -40,8 +40,8 @@ class URLMap(db.Model):
         raise RuntimeError(TextErrors.GENERATION_ERROR)
 
     @staticmethod
-    def create(original, short=None, skip_checks=False):
-        if not skip_checks:
+    def create(original, short=None, validate=True):
+        if validate:
             if len(original) > ORIGINAL_LENGTH:
                 raise ValueError(TextErrors.BAD_ORIGINAL_LENGTH)
             if short:
@@ -50,7 +50,7 @@ class URLMap(db.Model):
                     raise ValueError(TextErrors.BAD_SHORT)
                 if URLMap.get(short):
                     raise ValueError(TextErrors.SHORT_EXIST)
-        if not short or skip_checks:
+        if not short:
             short = URLMap.generate_short()
         url_map = URLMap(original=original, short=short)
         db.session.add(url_map)

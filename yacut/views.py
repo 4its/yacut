@@ -9,13 +9,15 @@ from .models import URLMap
 def index_view():
     form = URLMapForm()
     if not form.validate_on_submit():
-        return render_template('index.html', form=form, )
+        return render_template('index.html', form=form)
     try:
         return render_template(
             'index.html',
             form=form,
             link=URLMap.create(
-                form.original_link.data, form.custom_id.data,
+                original=form.original_link.data,
+                short=form.custom_id.data,
+                validate=False
             ).short_link()
         )
     except (ValueError, RuntimeError) as error:
@@ -25,4 +27,4 @@ def index_view():
 
 @app.route('/<short>', methods=['GET'])
 def redirect_to(short):
-    return redirect(URLMap.get(short, True).original)
+    return redirect(URLMap.get(short, or_404=True).original)

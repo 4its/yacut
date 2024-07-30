@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import HiddenField, StringField, SubmitField, URLField
+from wtforms import StringField, SubmitField, URLField
 from wtforms.validators import (
     DataRequired, Length, Optional, Regexp, URL, ValidationError
 )
@@ -27,7 +27,6 @@ class URLMapForm(FlaskForm):
             Regexp(SHORT_PATTERN, message=FormText.WRONG_CHARS_IN_SHORT),
         )
     )
-    skip_checks = HiddenField('Skip Checks', default='True')
     submit = SubmitField(FormText.SUBMIT_LABEL)
 
     def validate_custom_id(self, custom_id):

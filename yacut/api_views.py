@@ -18,7 +18,8 @@ def add_urlmap():
     try:
         return jsonify(
             URLMap.create(
-                original=data['url'], short=data.get('custom_id')
+                original=data['url'],
+                short=data.get('custom_id')
             ).to_dict()
         ), HTTPStatus.CREATED
     except (RuntimeError, ValueError) as error:
