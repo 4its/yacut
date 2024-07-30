@@ -14,8 +14,8 @@ def index_view():
         return render_template(
             'index.html',
             form=form,
-            link=URLMap.create_urlmap(
-                form.original_link.data, form.custom_id.data
+            link=URLMap.create(
+                form.original_link.data, form.custom_id.data, True
             ).short_link()
         )
     except (ValueError, RuntimeError) as error:
@@ -25,4 +25,4 @@ def index_view():
 
 @app.route('/<short>', methods=['GET'])
 def redirect_to(short):
-    return redirect(URLMap.get_object(short, True).original)
+    return redirect(URLMap.get(short, True).original)

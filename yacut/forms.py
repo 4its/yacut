@@ -30,5 +30,5 @@ class URLMapForm(FlaskForm):
     submit = SubmitField(FormText.SUBMIT_LABEL)
 
     def validate_custom_id(self, custom_id):
-        if URLMap.get_object(custom_id.data):
+        if URLMap.get(custom_id.data):
             raise ValidationError(TextErrors.SHORT_EXIST)

@@ -17,7 +17,7 @@ def add_urlmap():
         raise InvalidAPIUsage(TextErrors.NO_URL_ERROR)
     try:
         return jsonify(
-            URLMap.create_urlmap(
+            URLMap.create(
                 original=data['url'], short=data.get('custom_id')
             ).to_dict()
         ), HTTPStatus.CREATED
@@ -27,7 +27,7 @@ def add_urlmap():
 
 @app.route('/api/id/<short>/', methods=['GET'])
 def get_url(short):
-    url_map = URLMap.get_object(short)
+    url_map = URLMap.get(short)
     if url_map is None:
         raise InvalidAPIUsage(TextErrors.SHORT_NOT_FOUND, HTTPStatus.NOT_FOUND)
     return jsonify(url_map.to_dict(True)), HTTPStatus.OK

@@ -26,7 +26,7 @@ class URLMap(db.Model):
         return dict(url=self.original, short_link=self.short_link())
 
     @staticmethod
-    def get_object(short, or_404=False):
+    def get(short, or_404=False):
         if or_404:
             return URLMap.query.filter_by(short=short).first_or_404()
         return URLMap.query.filter_by(short=short).first()
@@ -35,20 +35,22 @@ class URLMap(db.Model):
     def generate_short():
         for _ in range(MAX_ATTEMPTS):
             short = ''.join(choices(AVAILIBLE_CHARS, k=DEFAULT_SHORT_LENGTH))
-            if not URLMap.get_object(short):
+            if not URLMap.get(short):
                 return short
         raise RuntimeError(TextErrors.GENERATION_ERROR)
 
     @staticmethod
-    def create_urlmap(original, short=None):
-        if len(original) > ORIGINAL_LENGTH:
-            raise ValueError(TextErrors.BAD_ORIGINAL_LENGTH)
-        if short:
-            if len(short) > SHORT_LENGTH or not match(SHORT_PATTERN, short):
-                raise ValueError(TextErrors.BAD_SHORT)
-            if URLMap.get_object(short):
-                raise ValueError(TextErrors.SHORT_EXIST)
-        else:
+    def create(original, short=None, skip_checks=False):
+        if not skip_checks:
+            if len(original) > ORIGINAL_LENGTH:
+                raise ValueError(TextErrors.BAD_ORIGINAL_LENGTH)
+            if short:
+                if ((len(short) > SHORT_LENGTH) or
+                        not match(SHORT_PATTERN, short)):
+                    raise ValueError(TextErrors.BAD_SHORT)
+                if URLMap.get(short):
+                    raise ValueError(TextErrors.SHORT_EXIST)
+        if not short or skip_checks:
             short = URLMap.generate_short()
         url_map = URLMap(original=original, short=short)
         db.session.add(url_map)
