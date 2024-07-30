@@ -40,16 +40,16 @@ class URLMap(db.Model):
         raise RuntimeError(TextErrors.GENERATION_ERROR)
 
     @staticmethod
-    def create_urlmap(original, short=None, from_form=False):
-        if not short:
-            short = URLMap.generate_short()
-        if not from_form:
+    def create_urlmap(original, short=None):
+        if len(original) > ORIGINAL_LENGTH:
+            raise ValueError(TextErrors.BAD_ORIGINAL_LENGTH)
+        if short:
             if len(short) > SHORT_LENGTH or not match(SHORT_PATTERN, short):
-                raise ValueError(TextErrors.BAD_CUSTOM_ID)
+                raise ValueError(TextErrors.BAD_SHORT)
             if URLMap.get_object(short):
-                raise ValueError(TextErrors.ID_ALREADY_EXIST)
-            if len(original) > ORIGINAL_LENGTH:
-                raise ValueError(TextErrors.BAD_ORIGINAL_LENGTH)
+                raise ValueError(TextErrors.SHORT_EXIST)
+        else:
+            short = URLMap.generate_short()
         url_map = URLMap(original=original, short=short)
         db.session.add(url_map)
         db.session.commit()
